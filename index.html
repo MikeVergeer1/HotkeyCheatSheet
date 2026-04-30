@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoHotkey Gids</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #aab4c8;
+            font-size: 1em;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .section h2 {
+            font-size: 1.3em;
+            color: #1a1a2e;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f2f5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2 .icon {
+            background: #e94560;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .section h3 {
+            font-size: 1em;
+            color: #555;
+            margin: 18px 0 8px;
+        }
+
+        .section h2::after {
+    content: '▼';
+    margin-left: auto;
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+}
+
+.ingeklapt h2::after {
+    transform: rotate(-90deg);
+}
+
+        pre {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 18px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88em;
+            line-height: 1.7;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .comment { color: #6c7086; }
+        .keyword { color: #cba6f7; }
+        .string { color: #a6e3a1; }
+        .hotkey { color: #89b4fa; }
+        .command { color: #f38ba8; }
+        .number { color: #fab387; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.92em;
+        }
+
+        th {
+            background: #1a1a2e;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        th:first-child { border-radius: 8px 0 0 0; }
+        th:last-child { border-radius: 0 8px 0 0; }
+
+        td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        tr:nth-child(even) td { background: #fafafa; }
+
+        code {
+            background: #f0f2f5;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #e94560;
+        }
+
+        .tip {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+            font-size: 0.92em;
+            color: #1e40af;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .step {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .step-num {
+            background: #e94560;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .sectie-inhoud {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            max-height: 1000px; 
+        }
+
+        .ingeklapt .sectie-inhoud {
+            max-height: 0;
+        }
+
+        footer {
+            text-align: center;
+            color: #aab4c8;
+            font-size: 0.85em;
+            margin-top: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1>AutoHotkey Gids</h1>
+        <p>Alles wat je nodig hebt om macro's te maken op je laptop</p>
+        <span class="badge">Windows</span>
+    </header>
+
+    <!-- SNEL STARTEN -->
+    <div class="section ingeklapt">
+        <h2><span class="icon">1</span> Snel starten</h2>
+        <div class="sectie-inhoud">
+        <div class="step">
+            <div class="step-num">1</div>
+            <div>Rechtsklik op je bureaublad → <strong>Nieuw → AutoHotkey Script</strong></div>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <div>Rechtsklik op het bestand → <strong>Edit Script</strong> (opent in Kladblok)</div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div>Schrijf je macro's, sla op, en <strong>dubbelklik</strong> het bestand om te starten</div>
+        </div>
+        <div class="step">
+            <div class="step-num">4</div>
+            <div>Je ziet een groen icoontje in de taakbalk — macro's zijn nu actief</div>
+        </div>
+        <div class="step">
+            <div class="step-num">5</div>
+            <div>Na aanpassingen: rechtsklik op taakbalk-icoontje → <strong>Reload Script</strong></div>
+        </div>
+        <div class="tip">
+            Elke regel die begint met <code>;</code> is een commentaar en wordt genegeerd door AutoHotkey.
+        </div>
+    </div>
+    </div>
+
+    <!-- TOETSEN SYMBOLEN -->
+    <div class="section ingeklapt">
+        <h2><span class="icon">2</span> Toetsen symbolen</h2>
+        <div class="sectie-inhoud">
+        <div class="grid">
+            <table>
+                <tr><th>Symbool</th><th>Toets</th></tr>
+                <tr><td><code>#</code></td><td>Windows-toets</td></tr>
+                <tr><td><code>^</code></td><td>Ctrl</td></tr>
+                <tr><td><code>!</code></td><td>Alt</td></tr>
+                <tr><td><code>+</code></td><td>Shift</td></tr>
+            </table>
+            <table>
+                <tr><th>Code</th><th>Toets</th></tr>
+                <tr><td><code>{Enter}</code></td><td>Enter</td></tr>
+                <tr><td><code>{Tab}</code></td><td>Tab</td></tr>
+                <tr><td><code>{Space}</code></td><td>Spatie</td></tr>
+                <tr><td><code>{Backspace}</code></td><td>Backspace</td></tr>
+                <tr><td><code>{Delete}</code></td><td>Delete</td></tr>
+                <tr><td><code>{Up} {Down}</code></td><td>Pijltjestoetsen</td></tr>
+                <tr><td><code>{F1}...{F12}</code></td><td>Functietoetsen</td></tr>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <!-- BASIS MACRO'S -->
+    <div class="section ingeklapt">
+        <h2><span class="icon">3</span> Basis macro's</h2>
+        <div class="sectie-inhoud">
+        <pre><span class="comment">; Tekst typen</span>
+<span class="hotkey">#h</span>::<span class="command">Send</span>, <span class="string">Hallo, dit werkt!</span>
+
+<span class="comment">; Popup berichtje tonen</span>
+<span class="hotkey">#d</span>::<span class="command">MsgBox</span>, <span class="string">Dit is een popup!</span>
+
+<span class="comment">; Programma openen</span>
+<span class="hotkey">#c</span>::<span class="command">Run</span>, calc.exe
+<span class="hotkey">#n</span>::<span class="command">Run</span>, notepad.exe
+
+<span class="comment">; Tekst met Enter typen</span>
+<span class="hotkey">#m</span>::<span class="command">Send</span>, <span class="string">Hallo, dit is een zin.{Enter}</span>
+
+<span class="comment">; Ctrl+C simuleren (kopiëren)</span>
+<span class="hotkey">#k</span>::<span class="command">Send</span>, ^c
+
+<span class="comment">; Klein berichtje zonder popup</span>
+<span class="hotkey">#t</span>::<span class="command">ToolTip</span>, <span class="string">Script werkt!</span></pre>
+    </div>
+    </div>
+
+    <!-- HERHALING -->
+    <div class="section ingeklapt">
+        <h2><span class="icon">4</span> Herhaling (Loop)</h2>
+        <div class="sectie-inhoud">
+
+        <h3>Exact aantal keer</h3>
+        <pre><span class="hotkey">#h</span>::
+<span class="keyword">Loop</span>, <span class="number">5</span>
+{
+    <span class="command">Send</span>, <span class="string">Hallo{Enter}</span>
+}
+<span class="keyword">return</span></pre>
+
+        <h3>Zolang toets ingedrukt is</h3>
+        <pre><span class="hotkey">#h</span>::
+<span class="keyword">while</span> <span class="command">GetKeyState</span>(<span class="string">"#h"</span>, <span class="string">"P"</span>)
+{
+    <span class="command">Send</span>, <span class="string">Hallo{Enter}</span>
+    <span class="command">Sleep</span>, <span class="number">500</span>  <span class="comment">; wacht 500ms tussen elke herhaling</span>
+}
+<span class="keyword">return</span></pre>
+
+        <h3>Toggle (aan/uit)</h3>
+        <pre><span class="hotkey">#h</span>::
+toggle := !toggle
+<span class="keyword">while</span> toggle
+{
+    <span class="command">Send</span>, <span class="string">Hallo{Enter}</span>
+    <span class="command">Sleep</span>, <span class="number">500</span>
+}
+<span class="keyword">return</span></pre>
+
+        <table>
+            <tr><th>Sleep waarde</th><th>Betekenis</th></tr>
+            <tr><td><code>Sleep, 100</code></td><td>0.1 seconde (snel)</td></tr>
+            <tr><td><code>Sleep, 500</code></td><td>0.5 seconde</td></tr>
+            <tr><td><code>Sleep, 1000</code></td><td>1 seconde</td></tr>
+            <tr><td><code>Sleep, 3000</code></td><td>3 seconden</td></tr>
+        </table>
+    </div>
+    </div>
+
+    <!-- MUIS -->
+    <div class="section ingeklapt">
+        <h2><span class="icon">5</span> Muis</h2>
+         <div class="sectie-inhoud">
+        <pre><span class="comment">; Muisklik op huidige positie</span>
+<span class="hotkey">#c</span>::<span class="command">Click</span>
+
+<span class="comment">; Dubbelklik</span>
+<span class="hotkey">#d</span>::<span class="command">Click</span>, <span class="number">2</span>
+
+<span class="comment">; Klik op specifieke positie (x, y)</span>
+<span class="hotkey">#p</span>::<span class="command">Click</span>, <span class="number">500</span>, <span class="number">300</span></pre>
+    </div>
+    </div>
+
+    <!-- VENSTERS -->
+    <div class="section ingeklapt">
+        <h2><span class="icon">6</span> Vensters</h2>
+        <div class="sectie-inhoud">
+        <pre><span class="comment">; Huidig venster minimaliseren</span>
+<span class="hotkey">#m</span>::<span class="command">WinMinimize</span>, A
+
+<span class="comment">; Huidig venster maximaliseren</span>
+<span class="hotkey">#x</span>::<span class="command">WinMaximize</span>, A
+
+<span class="comment">; Specifiek programma naar voren halen</span>
+<span class="hotkey">#b</span>::<span class="command">WinActivate</span>, <span class="string">Chrome</span></pre>
+    </div>
+    </div>
+
+    <!-- HANDIG OM TE WETEN -->
+    <div class="section ingeklapt">
+        <h2><span class="icon">7</span> Handige extra's</h2>
+        <div class="sectie-inhoud">
+        <pre><span class="comment">; Script pauzeren/hervatten met de Pause-toets</span>
+Pause::<span class="command">Suspend</span>
+
+<span class="comment">; Script volledig afsluiten</span>
+<span class="hotkey">#Escape</span>::<span class="command">ExitApp</span></pre>
+
+        <div class="tip">
+            Zet <code>#Escape::ExitApp</code> altijd in je script — zo kun je het snel stoppen als een macro te snel gaat of blijft hangen.
+        </div>
+    </div>
+    </div>
+
+    <footer>AutoHotkey Gids &mdash; gemaakt op 30 april 2026</footer>
+
+</div>
+<script>
+    document.querySelectorAll('.section h2').forEach(function(titel) {
+        titel.style.cursor = 'pointer';
+        titel.addEventListener('click', function() {
+            var sectie = titel.parentElement;
+            sectie.classList.toggle('ingeklapt');
+        });
+    });
+</script>
+</body>
+</html>
